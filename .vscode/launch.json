@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - RSA_Cipher",
+            "request": "launch",
+            "mainClass": "rsa.RSA_Cipher",
+            "projectName": "RSA_Cipher_3463715f"
+        }
+    ]
+}

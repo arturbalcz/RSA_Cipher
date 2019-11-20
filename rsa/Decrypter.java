@@ -1,10 +1,9 @@
 package rsa;
 
 import java.math.BigInteger;
+import rsa.keys.model.PrivateKey;
 
-import rsa.keys.model.PublicKey;
-
-public class Encrypter {
+public class Decrypter {
 
     private static final int BLOCK_SIZE_IN_BYTES = 1; 
 
@@ -20,9 +19,9 @@ public class Encrypter {
     }
 
 
-    public static byte[] encryptBlock(PublicKey key, byte b[]) {
+    public static byte[] decryptBlock(PrivateKey key, byte b[]) {
         BigInteger value = new BigInteger(b);  
-        BigInteger result = value.modPow(key.getE(), key.getN()); 
+        BigInteger result = value.modPow(key.getD(), key.getN()); 
 
         System.out.println(result.toString());
 
@@ -33,7 +32,7 @@ public class Encrypter {
         return result.toByteArray(); 
     }
 
-    public static String encrypt(PublicKey key, String text) {
+    public static String decrypt(PrivateKey key, String text) {
 
 
         return ""; 
