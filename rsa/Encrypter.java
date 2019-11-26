@@ -1,8 +1,6 @@
 package rsa;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
-
 import rsa.keys.model.PublicKey;
 
 public class Encrypter {

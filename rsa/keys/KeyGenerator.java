@@ -8,7 +8,7 @@ import rsa.keys.model.PublicKey;
 
 public class KeyGenerator {
     private Random random = new Random(); 
-    private static final int RANDOM_NUMBER_BIT_LENGTH = 2048; 
+    private static final int RANDOM_NUMBER_LENGTH_IN_BITS = 2048; 
 
     private BigInteger productN = BigInteger.ZERO; 
     private BigInteger productPhi = BigInteger.ZERO; 
@@ -18,7 +18,7 @@ public class KeyGenerator {
 
     public KeyGenerator() {
 
-        while(productN.compareTo(BigInteger.TWO.pow(RANDOM_NUMBER_BIT_LENGTH)) < 0) {
+        while(productN.compareTo(BigInteger.TWO.pow(RANDOM_NUMBER_LENGTH_IN_BITS)) < 0) {
             BigInteger primeNumberP = generatePrimeNumber(); 
             BigInteger primeNumberQ = generatePrimeNumber(); 
     
@@ -35,20 +35,20 @@ public class KeyGenerator {
     }
 
     private BigInteger generatePrimeNumber() {
-        BigInteger primeNumber = BigInteger.probablePrime(RANDOM_NUMBER_BIT_LENGTH, random); 
+        BigInteger primeNumber = BigInteger.probablePrime(RANDOM_NUMBER_LENGTH_IN_BITS, random); 
 
         while(!primeNumber.isProbablePrime(100)) {
-            primeNumber = BigInteger.probablePrime(RANDOM_NUMBER_BIT_LENGTH, random);
+            primeNumber = BigInteger.probablePrime(RANDOM_NUMBER_LENGTH_IN_BITS, random);
         }
 
         return primeNumber; 
     }
 
     private BigInteger generatetCoprimeNumber(BigInteger x) {
-        BigInteger result = new BigInteger(RANDOM_NUMBER_BIT_LENGTH, random); 
+        BigInteger result = new BigInteger(RANDOM_NUMBER_LENGTH_IN_BITS, random); 
 
         while(result.gcd(x).compareTo(BigInteger.ONE) != 0) {
-            result = new BigInteger(RANDOM_NUMBER_BIT_LENGTH, random); 
+            result = new BigInteger(RANDOM_NUMBER_LENGTH_IN_BITS, random); 
             if(result.compareTo(BigInteger.ONE)==0) {
                 result = result.add(BigInteger.ONE); 
             }   
@@ -85,10 +85,6 @@ public class KeyGenerator {
 
     private BigInteger generateDNumber() {
         BigInteger d = calculateModularInverse(coPrimeNumberE, productPhi); 
-
-        if(d.multiply(coPrimeNumberE).mod(productPhi).compareTo(BigInteger.ONE) != 0) 
-            throw new RuntimeException("wrong d value"); 
-
         return d; 
     }
 
