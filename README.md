@@ -6,6 +6,6 @@ Includes private and public key generation from random prime numbers of 2048 bit
 
 ## Compilation and run  
 javac rsa/RSA_Cipher.java  
-java rsa/RSA_Cipher <list of files>  
+java rsa/RSA_Cipher \<list of files\>  
   
 Every given file will be encrypted and decrypted, then save to new file  
