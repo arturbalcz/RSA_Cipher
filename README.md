@@ -1,7 +1,7 @@
 # RSA_Cipher  
 
 ## Demo implementation of RSA algorithm  
-Project for Data Protection subject at CS studies 
+Project for Data Protection subject at CS studies  
 Includes private and public key generation from random prime numbers of 2048 bits, encryption and decryption of messege up to 256 bytes  
 
 ## Compilation and run  
