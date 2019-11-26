@@ -1,22 +1,36 @@
 package rsa;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 
 import rsa.keys.model.PublicKey;
 
 public class Encrypter {
+    
+    private static final int INPUT_BLOCK_SIZE_IN_BYTES = 3; 
+    private static final int OUTPUT_BLOCK_SIZE_IN_BYTES = 7; 
 
-    private static final int BLOCK_SIZE_IN_BYTES = 1; 
+    private static byte[] getBlock(byte[] byteArray, int startIndedx) {
+        byte[] block = new byte[INPUT_BLOCK_SIZE_IN_BYTES]; 
 
-    private static byte[] getBlock(byte[] byteArray) {
-        int blockIterator = BLOCK_SIZE_IN_BYTES; 
-        byte[] block = new byte[BLOCK_SIZE_IN_BYTES]; 
-
-        for (int i = byteArray.length - 1; blockIterator > 0; i--) {
-            block[--blockIterator] = byteArray[i]; 
+        for (int i = 0; i < block.length && startIndedx + i < byteArray.length; i++) {
+            block[i] = byteArray[startIndedx + i]; 
         }
 
         return block; 
+    }
+
+    private static byte[] fillBlock(byte[] byteArray) {
+        if(byteArray.length == OUTPUT_BLOCK_SIZE_IN_BYTES) return byteArray; 
+        
+        byte[] result = new byte[OUTPUT_BLOCK_SIZE_IN_BYTES]; 
+
+        int resultIterator = result.length; 
+        for (int i = byteArray.length - 1; i > 0; i--) {
+            result[--resultIterator] = byteArray[i]; 
+        }
+
+        return result; 
     }
 
 
@@ -33,9 +47,19 @@ public class Encrypter {
         return result.toByteArray(); 
     }
 
-    public static String encrypt(PublicKey key, String text) {
+    public static byte[] encrypt(PublicKey key, byte[] text) {
+        ArrayList<Byte> result = new ArrayList<>(); 
 
+        for (int i = 0; i < text.length; i+=INPUT_BLOCK_SIZE_IN_BYTES) {
+            byte[] block = getBlock(text, i); 
+            byte[] encryptedBlock = encryptBlock(key, block);
+            byte[] readyBlock = fillBlock(encryptedBlock); 
+            for (byte b : readyBlock) {
+                result.add(b); 
+            }
+        }
 
-        return ""; 
+        return null; 
+        // return result.stream().collect(); 
     }
 }

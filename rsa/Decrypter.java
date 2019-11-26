@@ -5,11 +5,11 @@ import rsa.keys.model.PrivateKey;
 
 public class Decrypter {
 
-    private static final int BLOCK_SIZE_IN_BYTES = 1; 
+    private static final int INPUT_BLOCK_SIZE_IN_BYTES = 7; 
 
     private static byte[] getBlock(byte[] byteArray) {
-        int blockIterator = BLOCK_SIZE_IN_BYTES; 
-        byte[] block = new byte[BLOCK_SIZE_IN_BYTES]; 
+        int blockIterator = INPUT_BLOCK_SIZE_IN_BYTES; 
+        byte[] block = new byte[INPUT_BLOCK_SIZE_IN_BYTES]; 
 
         for (int i = byteArray.length - 1; blockIterator > 0; i--) {
             block[--blockIterator] = byteArray[i]; 

@@ -8,7 +8,7 @@ import rsa.keys.model.PublicKey;
 
 public class KeyGenerator {
     private Random random = new Random(); 
-    private static final int RANDOM_NUMBER_BIT_LENGTH = 16; 
+    private static final int RANDOM_NUMBER_BIT_LENGTH = 24; 
 
     private final BigInteger productN; 
     private final BigInteger productPhi;
