@@ -9,8 +9,6 @@ public class Decrypter {
         BigInteger value = new BigInteger(cryptogram);  
         BigInteger result = value.modPow(key.getD(), key.getN()); 
 
-        System.out.println(result.toString());
-
         return result.toByteArray(); 
     }
 }

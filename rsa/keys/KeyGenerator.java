@@ -8,7 +8,7 @@ import rsa.keys.model.PublicKey;
 
 public class KeyGenerator {
     private Random random = new Random(); 
-    private static final int RANDOM_NUMBER_BIT_LENGTH = 24; 
+    private static final int RANDOM_NUMBER_BIT_LENGTH = 2048; 
 
     private BigInteger productN = BigInteger.ZERO; 
     private BigInteger productPhi = BigInteger.ZERO; 
@@ -20,24 +20,18 @@ public class KeyGenerator {
 
         while(productN.compareTo(BigInteger.TWO.pow(RANDOM_NUMBER_BIT_LENGTH)) < 0) {
             BigInteger primeNumberP = generatePrimeNumber(); 
-            System.out.println(primeNumberP);
             BigInteger primeNumberQ = generatePrimeNumber(); 
     
             while(primeNumberP.compareTo(primeNumberQ) == 0) {
                 primeNumberQ = generatePrimeNumber(); 
             }
     
-            System.out.println(primeNumberQ);
             productN = primeNumberP.multiply(primeNumberQ); 
-            System.out.println(productN);
             productPhi = (primeNumberP.subtract(BigInteger.ONE)).multiply((primeNumberQ.subtract(BigInteger.ONE))); 
-            System.out.println(productPhi);
         }
 
         coPrimeNumberE = generatetCoprimeNumber(productPhi);
-        System.out.println(coPrimeNumberE);
         numberD = generateDNumber(); 
-        System.out.println(numberD); 
     }
 
     private BigInteger generatePrimeNumber() {
@@ -90,14 +84,10 @@ public class KeyGenerator {
     }
 
     private BigInteger generateDNumber() {
-        BigInteger randomNumber = new BigInteger(RANDOM_NUMBER_BIT_LENGTH, random); 
-        // BigInteger d = (randomNumber.multiply(productPhi).add(BigInteger.ONE)).divide(coPrimeNumberE); 
         BigInteger d = calculateModularInverse(coPrimeNumberE, productPhi); 
 
-        while(d.multiply(coPrimeNumberE).mod(productPhi).compareTo(BigInteger.ONE) != 0) {
-            randomNumber = new BigInteger(RANDOM_NUMBER_BIT_LENGTH, random);
-            d = (randomNumber.multiply(productPhi).add(BigInteger.ONE)).divide(coPrimeNumberE);
-        } 
+        if(d.multiply(coPrimeNumberE).mod(productPhi).compareTo(BigInteger.ONE) != 0) 
+            throw new RuntimeException("wrong d value"); 
 
         return d; 
     }

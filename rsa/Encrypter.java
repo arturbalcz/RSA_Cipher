@@ -11,8 +11,6 @@ public class Encrypter {
         BigInteger value = new BigInteger(text);  
         BigInteger result = value.modPow(key.getE(), key.getN()); 
 
-        System.out.println(result.toString()); 
-
         return result.toByteArray(); 
     }
 }
