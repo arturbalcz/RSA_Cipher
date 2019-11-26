@@ -12,8 +12,8 @@ public class RSA_Cipher {
         PrivateKey privateKey = generator.getPrivateKey(); 
         PublicKey publicKey = generator.getPublicKey(); 
 
-        byte[] encrypted = Encrypter.encryptBlock(publicKey, "qwerty".getBytes());
-        byte[] decrypted = Decrypter.decryptBlock(privateKey, encrypted); 
+        byte[] encrypted = Encrypter.encrypt(publicKey, "qwe".getBytes());
+        byte[] decrypted = Decrypter.decrypt(privateKey, encrypted); 
         
         System.out.println(new String(encrypted));
         System.out.println(encrypted.length);
